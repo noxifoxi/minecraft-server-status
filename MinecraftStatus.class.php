@@ -22,6 +22,7 @@ class MinecraftStatus {
 			$Handle = substr($Handle, 2);
 			$this->Info = explode("\xa7", $Handle); // Separate Infos
 			unset($Handle);
+			fclose($this->Socket);
 			
 			if(sizeof($this->Info) == 3) {
 				$this->MOTD       = $this->Info[0];
@@ -33,10 +34,10 @@ class MinecraftStatus {
 				for($i = 0; $i < sizeof($this->Info) - 2; $i++) {
 					$Temp .= ($i > 0 ? '§' : '').$this->Info[$i];
 				}
-				$this->MOTD = $Temp;
+				$this->MOTD       = $Temp;
 				$this->CurPlayers = (int)$this->Info[sizeof($this->Info) - 2];
 				$this->MaxPlayers = (int)$this->Info[sizeof($this->Info) - 1];
-				$this->Error = 'Faulty motd or outdated script';
+				$this->Error      = 'Faulty motd or outdated script';
 			} else {
 				$this->MOTD       = false;
 				$this->CurPlayers = false;
