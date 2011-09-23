@@ -1,4 +1,4 @@
-# Minecraft Server Status Script for PHP
+﻿# Minecraft Server Status Script for PHP
 This script supports Minecraft servers 1.8 or higher
 
 Create new Server Status Object:
