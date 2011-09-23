@@ -1,5 +1,5 @@
 # Minecraft Server Status Script for PHP
-This script...
+This script supports Minecraft servers 1.8 or higher
 
 Create new Server Status Object:
 
@@ -7,7 +7,10 @@ Create new Server Status Object:
 $Server = new MinecraftStatus($IP, $Port = 25565);
 ```
 
-Check if online or offline
+Return: new MinecraftStatus Object
+
+
+Check if server is online or offline:
 
 ```
 $Server->Online
