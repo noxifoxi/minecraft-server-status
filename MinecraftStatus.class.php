@@ -11,7 +11,7 @@ class MinecraftStatus {
 	private $Socket, $Info;
 	public $Online, $MOTD, $CurPlayers, $MaxPlayers, $IP, $Port, $Error;
 	
-	public function __construct($IP, $Port = '25565') {	
+	public function __construct($IP, $Port = '25565') {
 		$this->IP = $IP;
 		$this->Port = $Port;
 		
