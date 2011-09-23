@@ -3,9 +3,10 @@
  * Minecraft Server Status Class
  * @copyright	© 2011 Nox Nebula - Patrick Kleinschmidt
  * @website		https://github.com/NoxNebula/MC-Server-Status
- * @licence		GNU Public Licence - Version 3
+ * @license		GNU Public Licence - Version 3
  * @author		Nox Nebula - Patrick Kleinschmidt
  **/
+
 class MinecraftStatus {
 	private $Socket, $Info;
 	public $Online, $MOTD, $CurPlayers, $MaxPlayers, $IP, $Port, $Error;
