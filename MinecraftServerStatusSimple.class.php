@@ -67,6 +67,6 @@ class MinecraftServerStatusSimple {
 	 * @return mixed
 	 */
 	public function Get($Key = '') {
-		return $Key ? (array_key_exists($this->Info[$Key]) ? $this->Info[$Key] : false) : $this->Info;
+		return $Key ? (array_key_exists($Key, $this->Info) ? $this->Info[$Key] : false) : $this->Info;
 	}
 }
