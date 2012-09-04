@@ -1,136 +1,87 @@
 ﻿Minecraft Server Status Script for PHP
 ======================================
-By Patrick Kleinschmidt (Nox Nebula).<br>
-https://github.com/NoxNebula/MC-Server-Status/
 
-This is a lightweight script, which reads the server infos of Minecraft servers, it supports Minecraft server beta 1.8 or higher.
+By Patrick K. (Nox Nebula).<br>
+http://www.silexboard.org/, https://github.com/NoxNebula/Minecraft-Server-Status
+
+This is a lightweight script, which reads the server infos of Minecraft servers.<br>
+The simple script (MinecraftServerStatusSimple.class.php) supports Minecraft server beta 1.8 or higher.<br>
+The newer one (MinecraftServerStatus.class.php) uses the query method and supports Minecraft servers beginning with Minecraft 1.0.0.
 
 ## Features
 
-* Read and parse the build-in server infos from minecraft beta 1.8 or higher servers
-* OOPHP!
-* Error handles
+* Query the server if "enable-query" is activated and parse the server infos.<br>
+  The simple one read and parse the build-in server infos from minecraft beta 1.8 or higher servers.
+* OOPHP
+* Handles some errors
 * Easy to use
 * Lightweight
+* Fallback
 
 ## Requirements
 
-* PHP 4 (But 5.x is recommended)
-* PHP allowed stream sockets
-* PHP allowed fwrite, fread, fclose (For URLs).
+* PHP 5.4.0 (You need to edit the scripts, if you want to use older php versions)
+* PHP allowed stream sockets (stream_socket_client, fwrite, fread, fclose)
 
 # How to use the script
 
-Include the php-file first:
-
-```
-include('MinecraftStatus.class.php');
-```
-
-Then, create a new Server Status Object:
-
-```
-$Server = new MinecraftStatus($IP, $Port = 25565);
+```php
+<?php
+require_once('MinecraftServerStatus.class.php');
+$Server = new MinecraftServerStatus('example-minecraft-host.com');
+?>
 ```
 
-This will return a new MinecraftStatus Object which has already read all available server infos.
-
+```php
+MinecraftServerStatus($Host, $Port = 25565, $Timeout = 1)
+```
 
 ## Check Online/Offline
 
 You can easily check if the server is online or offline:
 
-```
-$Server->Online
-```
-
-This will return a boolean, it's true, if the server is online else false.
-
-### Example
-
-```
-echo $Server->Online ? 'Online' : 'Offline';
+```php
+$Server->Get('online');
 ```
 
-## Display the message of the day
+This will return a boolean, if it's true, the server is online else false.
 
-To get the MOTD from the server info, you just have to write:
+## Get the player count
 
-```
-$Server->MOTD;
-```
-
-This will return a string with the message of the day.
-
-### Example
-
-```
-echo 'Message of the day: '.$Server->MOTD;
+```php
+echo $Server->Get('numplayers').' / '.$Server->Get('maxplayers');
 ```
 
-## Get the player status
+## Get a list of online players
 
-You can also easily get the current and maximum player info:
-
-```
-$Server->CurPlayers;
-$Server->MaxPlayers;
+```php
+foreach($Server->Get('players') as $Player)
+	echo $Player.'<br>';
 ```
 
-These both will return an integer with the playernumber or - if something is wrong - a string with three questionmarks (???)
+## Get the whole info / status
 
-### Example
-
-```
-echo 'Player: '.$Server->CurPlayers.' / '.$Server->MaxPlayers;
+```php
+$ServerStatus = $Server->Get();
 ```
 
-## Further Infos
+## All available "hooks"
 
-You can get the Serveraddress and the Port from the object:
+The most of these hooks are only available if the server has query enabled or the server is not vanilla.
+> 'hostname'
+> 'gametype'
+> 'game_id'
+> 'version'
+> 'plugins'
+> 'map'
+> 'numplayers'
+> 'maxplayers'
+> 'hostport'
+> 'hostip'
+> 'online'
+> 'software'
+note to check if ```$Server->Get('hook');``` return the expected value (No hook = false).
 
-```
-$Server->IP;    // Serveraddress
-$Server->Port;  // Port
-```
+## Fallback
 
-### Example
-
-```
-echo 'Serveraddress: '.$Server->IP.($Server->Port != 25565 ? ':'.$Server->Port : '');
-```
-
-You can also get infos about the errors happened:
-
-```
-$Server->Error;
-```
-
-This return a string with an error if a error happened, else it return false.
-
-### Example
-
-```
-echo $Server->Error ? 'Error: '.$Server->Error : '';
-```
-
-## Get the main infos shorthanded
-
-To get the MOTD, CurPlayers and MaxPlayers infos, just write:
-
-```
-$Server->Info();
-```
-
-This one return an array which contains the following keys:
-
-* MOTD
-* CurPlayers
-* MaxPlayers
-
-### Example
-
-```
-$Info = $Server->Info();
-echo $Info['MOTD'].'<br>'.$Info['CurPlayers'].' / '.$Info['MaxPlayers'];
-```
+You can just use the "MinecraftServerStatus.class.php" file without the simple one, but if you want a fallback (fewer server infos but works everytime if the requested server is ok) you also should have the "MinecraftServerStatusSimple.class.php" in the same folder.
