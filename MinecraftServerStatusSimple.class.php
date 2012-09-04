@@ -25,12 +25,18 @@ class MinecraftServerStatusSimple {
 		}
 		stream_set_timeout($this->Socket, $Timeout);
 
+		// Tell the server to send the info
 		fwrite($this->Socket, "\xfe");
+		// Read these info
 		$Data = fread($this->Socket, 2048);
+		// Remove the nulls
 		$Data = str_replace("\x00", '', $Data);
+		// cut the first 2 bytes off
 		$Data = substr($Data, 2);
-		$Info = explode("\xa7", $Data); // Separate Infos
+		// Separate Infos
+		$Info = explode("\xa7", $Data);
 		unset($Data);
+		// Close connection
 		fclose($this->Socket);
 
 		$this->Info['online'] = false;

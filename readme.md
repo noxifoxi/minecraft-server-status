@@ -25,6 +25,10 @@ The newer one (MinecraftServerStatus.class.php) uses the query method and suppor
 
 # How to use the script
 
+Make sure in your **server.properties** are the following lines:
+> *enable-query=true*<br>
+> *query.port=25565*
+
 ```php
 <?php
 require_once('MinecraftServerStatus.class.php');
@@ -68,18 +72,18 @@ $ServerStatus = $Server->Get();
 ## All available "hooks"
 
 The most of these hooks are only available if the server has query enabled or the server is not vanilla.
-> 'hostname'
-> 'gametype'
-> 'game_id'
-> 'version'
-> 'plugins'
-> 'map'
-> 'numplayers'
-> 'maxplayers'
-> 'hostport'
-> 'hostip'
-> 'online'
-> 'software'
+> 'hostname'<br>
+> 'gametype'<br>
+> 'game_id'<br>
+> 'version'<br>
+> 'plugins'<br>
+> 'map'<br>
+> 'numplayers'<br>
+> 'maxplayers'<br>
+> 'hostport'<br>
+> 'hostip'<br>
+> 'online'<br>
+> 'software'<br>
 note to check if ```$Server->Get('hook');``` return the expected value (No hook = false).
 
 ## Fallback
