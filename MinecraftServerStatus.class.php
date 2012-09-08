@@ -92,6 +92,8 @@ class MinecraftServerStatus {
 			$this->Info['software'] = $Data[0];
 			if($Data[1])
 				$this->Info['plugins']  = explode('; ', $Data[1]);
+			else
+				unset($this->Info['plugins']);
 		} else {
 			// It seems to be a vanilla server
 			$this->Info['software'] = 'Vanilla';
