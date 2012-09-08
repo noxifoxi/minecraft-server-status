@@ -73,7 +73,9 @@ class MinecraftServerStatus {
 		// Split the data string on the player position
 		$Data = explode("\00\00\01player_\00\00", $Data);
 		// Save the players
-		$Players = substr($Data[1], 0, -2);
+		$Players = '';
+		if($Data[1])
+			$Players = substr($Data[1], 0, -2);
 		// Split the server infos (status)
 		$Data = explode("\x00", $Data[0]);
 
@@ -88,7 +90,8 @@ class MinecraftServerStatus {
 		if($this->Info['plugins']) {
 			$Data = explode(": ", $this->Info['plugins']);
 			$this->Info['software'] = $Data[0];
-			$this->Info['plugins']  = explode('; ', $Data[1]);
+			if($Data[1])
+				$this->Info['plugins']  = explode('; ', $Data[1]);
 		} else {
 			// It seems to be a vanilla server
 			$this->Info['software'] = 'Vanilla';
