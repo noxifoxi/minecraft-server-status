@@ -4,7 +4,7 @@
  * Read the simple server info wich are actually for minecraft clients
  * @author    Patrick K. - http://www.silexboard.org/ - https://github.com/NoxNebula
  * @license   GNU Public Licence - Version 3
- * @copyright © 2011-2012 Patrick K.
+ * @copyright © 2011-2013 Patrick K.
  */
 class MinecraftServerStatusSimple {
 	private $Socket;
@@ -38,6 +38,8 @@ class MinecraftServerStatusSimple {
 		unset($Data);
 		// Close connection
 		fclose($this->Socket);
+
+		var_dump($Info);
 
 		$this->Info['online'] = false;
 		if(sizeof($Info) == 3) {

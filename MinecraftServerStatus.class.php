@@ -4,7 +4,7 @@
  * Query minecraft server
  * @author    Patrick K. - http://www.silexboard.org/ - https://github.com/NoxNebula
  * @license   GNU Public Licence - Version 3
- * @copyright © 2011-2012 Patrick K.
+ * @copyright © 2011-2013 Patrick K.
  */
 class MinecraftServerStatus {
 	// Get the server status
@@ -90,7 +90,7 @@ class MinecraftServerStatus {
 		if($this->Info['plugins']) {
 			$Data = explode(": ", $this->Info['plugins']);
 			$this->Info['software'] = $Data[0];
-			if($Data[1])
+			if(isset($Data[1]))
 				$this->Info['plugins']  = explode('; ', $Data[1]);
 			else
 				unset($this->Info['plugins']);
@@ -133,7 +133,7 @@ class MinecraftServerStatus {
 		// pack the command into a binary string
 		$Command = pack('c*', self::B1, self::B2, $Command, 0x01, 0x02, 0x03, 0x04).$Addition;
 		// send the binary string to the server
-		if(strlen($Command) !== fwrite($this->Socket, $Command, strlen($Command)))
+		if(strlen($Command) !== @fwrite($this->Socket, $Command, strlen($Command)))
 			throw new Exception('Failed to write on socket', 2);
 
 		// listen what the server has to say now
