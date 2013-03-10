@@ -39,8 +39,6 @@ class MinecraftServerStatusSimple {
 		// Close connection
 		fclose($this->Socket);
 
-		var_dump($Info);
-
 		$this->Info['online'] = false;
 		if(sizeof($Info) == 3) {
 			$this->Info['motd']       = $Info[0];
