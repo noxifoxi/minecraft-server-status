@@ -54,8 +54,8 @@ class MinecraftServerStatus {
 
 		// Try fallback if query is not enabled on the server
 		if(!$Data){
-			if(!class_exists('MinecraftServerStatusSimple') && file_exists('MinecraftServerStatusSimple.class.php'))
-				require_once('MinecraftServerStatusSimple.class.php');
+			if(!class_exists('MinecraftServerStatusSimple') && file_exists(__DIR__.'/MinecraftServerStatusSimple.class.php'))
+				require_once(__DIR__.'/MinecraftServerStatusSimple.class.php');
 			if(class_exists('MinecraftServerStatusSimple')) {
 				$Fallback = new MinecraftServerStatusSimple($Host, $Port, $Timeout);
 				$this->Info = [
