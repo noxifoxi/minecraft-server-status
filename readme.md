@@ -10,7 +10,7 @@ This lightweight script queries the server information from Minecraft java serve
 ## Features
 
 * Queries the server if the server setting ``enable-query`` is enabled and parses the server infos.
-* Fallbacks to read and parse the build-in server infos from Minecraft Beta 1.8+ servers.
+* Fallback to read and parse the build-in server infos from Minecraft Beta 1.8+ servers.
 * OOPHP
 * Error handling
 * Easy to use
@@ -91,4 +91,4 @@ Check if ``$Server->Get('hook');`` returns the expected value (No hook = false).
 
 ## Fallback
 
-``MinecraftServerStatus.class.php`` automatically fallbacks to using ``MinecraftServerStatusSimple.class.php`` if the file is present in the same folder. Providing less information, but information at all.
+``MinecraftServerStatus.class.php`` automatically falls back using ``MinecraftServerStatusSimple.class.php`` if the file is present in the same folder. Providing less information, but information at all.
