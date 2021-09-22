@@ -2,9 +2,9 @@
 /**
  * Minecraft server status class
  * Query minecraft server
- * @author    Patrick K. - http://www.silexboard.org/ - https://github.com/NoxNebula
+ * @author    noxifoxi https://github.com/noxifoxi
  * @license   GNU Public Licence - Version 3
- * @copyright © 2011-2013 Patrick K.
+ * @copyright © 2011-2021 noxifoxi
  */
 class MinecraftServerStatus {
 	// Get the server status

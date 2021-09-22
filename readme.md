@@ -1,33 +1,33 @@
-﻿Minecraft Server Status Script for PHP
-======================================
+# Lightweight Minecraft server status script for PHP
 
-By Patrick K. (Nox Nebula).<br>
-http://www.silexboard.org/, https://github.com/NoxNebula/Minecraft-Server-Status
+Copyright noxifoxi https://github.com/noxifoxi/minecraft-server-status
 
-This is a lightweight script, which reads the server infos of Minecraft servers.<br>
-The simple script (MinecraftServerStatusSimple.class.php) supports Minecraft server beta 1.8 or higher.<br>
-The newer one (MinecraftServerStatus.class.php) uses the query method and supports Minecraft servers beginning with Minecraft 1.0.0.
+This lightweight script queries the server information from Minecraft java servers.
+
+``MinecraftServerStatus.class.php`` *(Minecraft 1.0.0+)* uses the query method and supports all servers with enabled queries.
+``MinecraftServerStatusSimple.class.php`` *(Minecraft Beta 1.8+)* can be used as a fallback if the server does not permit queries, if something else goes wrong or just a simple request is required.
 
 ## Features
 
-* Query the server if "enable-query" is activated and parse the server infos.<br>
-  The simple one read and parse the build-in server infos from minecraft beta 1.8 or higher servers.
+* Queries the server if the server setting ``enable-query`` is enabled and parses the server infos.
+* Fallbacks to read and parse the build-in server infos from Minecraft Beta 1.8+ servers.
 * OOPHP
-* Handles some errors
+* Error handling
 * Easy to use
 * Lightweight
-* Fallback
 
 ## Requirements
 
-* PHP 5.4.0 (You need to edit the scripts, if you want to use older php versions)
-* PHP allowed stream sockets (stream_socket_client, fwrite, fread, fclose)
+* PHP 5.4.0+
+* PHP stream sockets (``stream_socket_client``, ``fwrite``, ``fread``, ``fclose``)
 
 # How to use the script
 
-Make sure in your **server.properties** are the following lines:
-> *enable-query=true*<br>
-> *query.port=25565*
+The **server.properties** has to include the following settings:
+```properties
+enable-query=true
+query.port=25565
+```
 
 ```php
 <?php
@@ -40,38 +40,40 @@ $Server = new MinecraftServerStatus('example-minecraft-host.com');
 MinecraftServerStatus($Host, $Port = 25565, $Timeout = 1)
 ```
 
-## Check Online/Offline
-
-You can easily check if the server is online or offline:
+## Check online/offline
 
 ```php
 $Server->Get('online');
 ```
 
-This will return a boolean, if it's true, the server is online else false.
+If the server is online the return value is true otherwise its false.
 
-## Get the player count
+## Get player count
 
 ```php
 echo $Server->Get('numplayers').' / '.$Server->Get('maxplayers');
 ```
 
-## Get a list of online players
+## Get a list of the online players names
 
 ```php
 foreach($Server->Get('players') as $Player)
 	echo $Player.'<br>';
 ```
 
-## Get the whole info / status
+``$Server->Get('players')`` returns an array of strings,
+
+## Get everything
 
 ```php
 $ServerStatus = $Server->Get();
 ```
 
+Returns an array with every information the script was able to fetch.
+
 ## All available "hooks"
 
-The most of these hooks are only available if the server has query enabled or the server is not vanilla.
+Most of these hooks are only available if the server has query enabled or is non-vanilla.
 > 'hostname'<br>
 > 'gametype'<br>
 > 'game_id'<br>
@@ -84,8 +86,9 @@ The most of these hooks are only available if the server has query enabled or th
 > 'hostip'<br>
 > 'online'<br>
 > 'software'<br>
-note to check if ```$Server->Get('hook');``` return the expected value (No hook = false).
+
+Check if ``$Server->Get('hook');`` returns the expected value (No hook = false).
 
 ## Fallback
 
-You can just use the "MinecraftServerStatus.class.php" file without the simple one, but if you want a fallback (fewer server infos but works everytime if the requested server is ok) you also should have the "MinecraftServerStatusSimple.class.php" in the same folder.
+``MinecraftServerStatus.class.php`` automatically fallbacks to using ``MinecraftServerStatusSimple.class.php`` if the file is present in the same folder. Providing less information, but information at all.
