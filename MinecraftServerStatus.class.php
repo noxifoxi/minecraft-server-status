@@ -74,7 +74,7 @@ class MinecraftServerStatus {
 		$Data = explode("\00\00\01player_\00\00", $Data);
 		// Save the players
 		$Players = '';
-		if($Data[1])
+		if(isset($Data[1]))
 			$Players = substr($Data[1], 0, -2);
 		// Split the server infos (status)
 		$Data = explode("\x00", $Data[0]);
